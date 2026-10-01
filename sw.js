@@ -1,6 +1,6 @@
 /* Core Ledger service worker: app shell network-first for pages (so updates arrive), cache-first for everything else;
    fonts, exercise pictures (GitHub, wger, Wikimedia, Fitness Programer) and photography (Unsplash) cached on first use. */
-const V = 'core-ledger-v10';
+const V = 'core-ledger-v11';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
